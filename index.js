@@ -3,7 +3,7 @@ const app = express();
 const port = 3000;
 const low = require("lowdb");
 const FileSync = require("lowdb/adapters/FileSync");
-
+const shortid = require("shortid");
 const adapter = new FileSync("db.json");
 const db = low(adapter);
 
@@ -39,8 +39,18 @@ app.get("/users/search", (req, res) => {
 app.get("/users/create", (req, res) => res.render("users/create"));
 
 app.post("/users/create", (req, res) => {
+  req.body.id = shortid.generate();
   db.get("users").push(req.body).write();
   res.redirect("/users");
+});
+
+app.get("/users/:id", function (req, res) {
+  var id = req.params.id;
+  var user = db.get("users").find({ id: id });
+
+  res.render("users/view", {
+    user: user.value(),
+  });
 });
 
 app.listen(port, () =>
