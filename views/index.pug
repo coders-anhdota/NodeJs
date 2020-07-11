@@ -1,6 +1,10 @@
 extends ./layouts/layout.pug
 
 block content
+    nav(class="navbar navbar-dark bg-dark justify-content-between")
+        a(class="navbar-brand", href="/users") User List 
+        form(action="", class="form-inline")
+            input(class="form-control mr-sm-2", type="text")
+            button(class="btn btn-outline-success my-2 my-sm-0", type="submit") Search
 
-    h1 hello world with #{name}
-    a(href="/users") User List
+    
