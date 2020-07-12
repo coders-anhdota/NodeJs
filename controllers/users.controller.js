@@ -2,6 +2,9 @@ var db = require("./../db");
 var shortid = require("shortid");
 
 module.exports.index = (req, res) => {
+
+  console.log(req.cookies)
+
   res.render("users/index", {
     users: db.get("users").value(),
   });
@@ -28,6 +31,7 @@ module.exports.postMethod = (req, res) => {
 
 module.exports.getMethod = function (req, res) {
   var id = req.params.id;
+
   var user = db.get("users").find({ id: id });
   res.render("users/view", {
     user: user.value(),
