@@ -1,6 +1,8 @@
 const express = require("express");
 
-const userRoute = require("./routes/users.route");
+var userRoute = require("./routes/users.route");
+var loginRoute = require("./routes/login.route");
+var validate = require("./validates/auth.validate");
 
 var cookieParser = require("cookie-parser");
 
@@ -16,13 +18,14 @@ app.use(express.static("public"));
 app.use(cookieParser());
 
 app.get("/", (req, res) => {
-  res.cookie("user-id", 0251254);
   res.render("index", {
     name: "My name is Tien Anh",
   });
 });
 
-app.use("/users", userRoute);
+app.use("/users", validate.validateAuth, userRoute);
+
+app.use("/auth",  loginRoute);
 
 app.listen(port, () =>
   console.log(`Example app listening at http://localhost:${port}`)
