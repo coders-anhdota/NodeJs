@@ -3,11 +3,14 @@ html
         link(rel="stylesheet", href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css")
         link(rel="stylesheet", href="./../../public/styles/custom.css")
     body
+        
         nav.navbar.navbar-dark.bg-dark.justify-content-between
+        
             a.navbar-brand(href='/users') 60TR-Userlist
             
             form.form-inline(action='')
                 input.form-control.mr-sm-2(type='text')
                 button.btn.btn-outline-success.my-2.my-sm-0(type='submit') Search
+            
         .container.pt-5
             block content
