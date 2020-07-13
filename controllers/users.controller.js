@@ -2,7 +2,6 @@ var db = require("./../db");
 var shortid = require("shortid");
 
 module.exports.index = (req, res) => {
-
   res.render("users/index", {
     users: db.get("users").value(),
   });
@@ -22,7 +21,11 @@ module.exports.create = (req, res) => res.render("users/create");
 
 module.exports.postMethod = (req, res) => {
   req.body.id = shortid.generate();
-  
+
+  var dataArr = req.file.path.split("");
+  var avatar = dataArr.slice(7).join("");
+  req.body.avatar = avatar;
+
   db.get("users").push(req.body).write();
   res.redirect("/users");
 };
