@@ -4,6 +4,8 @@ const express = require("express");
 
 var userRoute = require("./routes/users.route");
 var loginRoute = require("./routes/login.route");
+var productRoute = require("./routes/products.route")
+
 var validate = require("./validates/auth.validate");
 
 var cookieParser = require("cookie-parser");
@@ -26,8 +28,8 @@ app.get("/", (req, res) => {
 });
 
 app.use("/users", validate.validateAuth, userRoute);
-
 app.use("/auth", loginRoute);
+app.use("/products", productRoute)
 
 app.listen(port, () =>
   console.log(`Example app listening at http://localhost:${port}`)
