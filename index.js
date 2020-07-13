@@ -1,7 +1,6 @@
 require("dotenv").config();
 const express = require("express");
 
-console.log(process.env.SESSION_SECRET)
 
 var userRoute = require("./routes/users.route");
 var loginRoute = require("./routes/login.route");
