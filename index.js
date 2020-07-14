@@ -1,12 +1,13 @@
 require("dotenv").config();
 const express = require("express");
 
-
 var userRoute = require("./routes/users.route");
 var loginRoute = require("./routes/login.route");
-var productRoute = require("./routes/products.route")
+var productRoute = require("./routes/products.route");
+var cartRoute = require("./routes/cart.route");
 
-var validate = require("./validates/auth.validate");
+var middlewareAuth = require("./middlewares/auth.middleware");
+var middlewareSession = require("./middlewares/session.middleware");
 
 var cookieParser = require("cookie-parser");
 
@@ -20,6 +21,7 @@ app.use(express.json()); // for parsing application/json
 app.use(express.urlencoded({ extended: true })); // for parsing application/x-www-form-urlencoded
 app.use(express.static("public"));
 app.use(cookieParser(process.env.SESSION_SECRET));
+app.use(middlewareSession);
 
 app.get("/", (req, res) => {
   res.render("index", {
@@ -27,9 +29,10 @@ app.get("/", (req, res) => {
   });
 });
 
-app.use("/users", validate.validateAuth, userRoute);
+app.use("/cart", cartRoute)
+app.use("/users", middlewareAuth.validateAuth, userRoute);
 app.use("/auth", loginRoute);
-app.use("/products", productRoute)
+app.use("/products", productRoute);
 
 app.listen(port, () =>
   console.log(`Example app listening at http://localhost:${port}`)

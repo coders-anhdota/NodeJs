@@ -13,6 +13,5 @@ module.exports.validateAuth = function (req, res, next) {
     return;
   }
 
-
   next();
 };
