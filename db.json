@@ -663,5 +663,14 @@
       "document": "eleifend pede libero quis orci nullam molestie nibh in lectus pellentesque at nulla suspendisse potenti cras in purus eu magna"
     }
   ],
-  "sessions": []
+  "sessions": [
+    {
+      "id": "HsQQEqrwj",
+      "cart": {
+        "X1": 3,
+        "X2": 2,
+        "X5": 1
+      }
+    }
+  ]
 }
