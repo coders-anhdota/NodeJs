@@ -1,6 +1,9 @@
 require("dotenv").config();
-const express = require("express");
+var express = require("express");
 var csrf = require("csurf");
+var mongoose = require("mongoose");
+
+mongoose.connect(process.env.MONGO_URL);
 
 var userRoute = require("./routes/users.route");
 var loginRoute = require("./routes/login.route");
