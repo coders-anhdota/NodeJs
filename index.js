@@ -11,6 +11,8 @@ var productRoute = require("./routes/products.route");
 var cartRoute = require("./routes/cart.route");
 var transferRoute = require("./routes/transfer.route");
 
+var apiProductRoute = require('./api/routes/product.route')
+
 var middlewareAuth = require("./middlewares/auth.middleware");
 var middlewareSession = require("./middlewares/session.middleware");
 
@@ -36,11 +38,15 @@ app.get("/", (req, res) => {
 });
 
 app.use("/cart", cartRoute);
-app.use("/users", userRoute);
+app.use("/users", middlewareAuth.validateAuth, userRoute);
 app.use("/auth", loginRoute);
 app.use("/products", productRoute);
 app.use("/transfer", transferRoute);
 
+app.use("/api/products", apiProductRoute)
+
 app.listen(port, () =>
   console.log(`Example app listening at http://localhost:${port}`)
 );
+
+
