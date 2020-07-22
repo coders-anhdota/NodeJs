@@ -6,4 +6,6 @@ var router = express.Router();
 
 router.get("/", controller.listProduct);
 
+router.post("/", controller.create);
+
 module.exports = router;
