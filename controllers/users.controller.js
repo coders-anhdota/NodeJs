@@ -1,40 +1,42 @@
-var db = require("./../db");
+var User = require("../models/user.model");
 var shortid = require("shortid");
 
-module.exports.index = (req, res) => {
+module.exports.index = async (req, res) => {
+  var users = await User.find();
   res.render("users/index", {
-    users: db.get("users").value(),
+    users: users,
   });
 };
 
-module.exports.search = (req, res) => {
+module.exports.search = async (req, res) => {
   var q = req.query.q;
-  var matchedUser = db
-    .get("users")
-    .filter((user) => user.name.toLowerCase().indexOf(q.toLowerCase()) !== -1);
+  var users = await User.find();
+  var matchedUser = users.filter(
+    (user) => user.name.toLowerCase().indexOf(q.toLowerCase()) !== -1
+  );
   res.render("users/index", {
-    users: matchedUser.value(),
+    users: matchedUser,
   });
 };
 
-module.exports.create = (req, res) => res.render("users/create");
+module.exports.create = async (req, res) => res.render("users/create");
 
-module.exports.postMethod = (req, res) => {
+module.exports.postMethod = async (req, res) => {
   req.body.id = shortid.generate();
 
   var dataArr = req.file.path.split("");
   var avatar = dataArr.slice(7).join("");
   req.body.avatar = avatar;
-
-  db.get("users").push(req.body).write();
+  var users = await User.find();
+  users.push(req.body).write();
   res.redirect("/users");
 };
 
-module.exports.getMethod = function (req, res) {
+module.exports.getMethod = async function (req, res) {
   var id = req.params.id;
-
-  var user = db.get("users").find({ id: id });
+  var users = await User.find();
+  var user = users.find({ id: id });
   res.render("users/view", {
-    user: user.value(),
+    user: user,
   });
 };

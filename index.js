@@ -36,7 +36,7 @@ app.get("/", (req, res) => {
 });
 
 app.use("/cart", cartRoute);
-app.use("/users", middlewareAuth.validateAuth, userRoute);
+app.use("/users", userRoute);
 app.use("/auth", loginRoute);
 app.use("/products", productRoute);
 app.use("/transfer", transferRoute);
