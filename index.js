@@ -29,7 +29,7 @@ app.use(express.urlencoded({ extended: true })); // for parsing application/x-ww
 app.use(express.static("public"));
 app.use(cookieParser(process.env.SESSION_SECRET));
 app.use(middlewareSession);
-app.use(csrf({ cookie: true }));
+// app.use(csrf({ cookie: true }));
 
 app.get("/", (req, res) => {
   res.render("index", {
